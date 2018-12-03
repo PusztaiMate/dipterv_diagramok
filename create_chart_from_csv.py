@@ -23,9 +23,11 @@ def create_chart(filename: str, title: str, y_name: str, header_length: int=1):
     DataRow = namedtuple('Result', 'name,avg_f,dev_f,avg_s,dev_s')
     datarows = []
 
-    with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf-8') as f:
         reader = csv.reader(f, delimiter=';')
+        logger.debug(f'reader: {reader}')
         for row in reader:
+            logger.debug(f'row: {row}')
             DRAW = len(row) - 1  # always the last column is the mark to draw
             if row[DRAW] and row[DRAW].lower() in 'yxio':
                 _row = DataRow(row[NAME_INDEX],
